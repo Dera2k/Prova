@@ -1,0 +1,10 @@
+{
+  "name": "prova",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "customer:start": "pnpm --dir apps/customer-mobile exec expo start",
+    "customer:android": "pnpm --dir apps/customer-mobile exec expo start --android"
+  }
+}
