@@ -5,6 +5,10 @@
   "packageManager": "pnpm@11.21.0",
   "scripts": {
     "customer:start": "pnpm --dir apps/customer-mobile exec expo start",
-    "customer:android": "pnpm --dir apps/customer-mobile exec expo start --android"
+    "customer:android": "pnpm --dir apps/customer-mobile exec expo start --android",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6"
   }
 }
