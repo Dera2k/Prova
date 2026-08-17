@@ -7,3 +7,4 @@ export { Card } from "./Card";
 export { FeedbackState } from "./FeedbackState";
 export { Rating } from "./Rating";
 export { Screen } from "./Screen";
+export { PlaceholderScreen } from "./PlaceholderScreen";
