@@ -4,11 +4,12 @@
   "private": true,
   "packageManager": "pnpm@11.21.0",
   "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "customer:start": "pnpm --dir apps/customer-mobile exec expo start",
-    "customer:android": "pnpm --dir apps/customer-mobile exec expo start --android",
-    "format": "prettier --write ."
+    "customer:android": "pnpm --dir apps/customer-mobile exec expo start --android"
   },
   "devDependencies": {
-    "prettier": "^3.9.6"
+    "prettier": "^3.6.2"
   }
 }
