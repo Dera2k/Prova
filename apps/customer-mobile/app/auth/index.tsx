@@ -1,10 +1,1 @@
-import { PlaceholderScreen } from "@/components";
-
-export default function WelcomeScreen() {
-  return (
-    <PlaceholderScreen
-      title="Welcome to Prova"
-      description="Authentication screens arrive in Phase 5."
-    />
-  );
-}
+export { WelcomeScreen as default } from '@/features/auth/screens/WelcomeScreen';

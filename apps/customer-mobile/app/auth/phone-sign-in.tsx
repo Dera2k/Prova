@@ -1,0 +1,1 @@
+export { PhoneSignInScreen as default } from '@/features/auth/screens/PhoneSignInScreen';
