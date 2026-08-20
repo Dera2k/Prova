@@ -26,7 +26,7 @@ export function WelcomeScreen() {
           nearby.
         </Text>
         <Text style={styles.subheading}>
-          Burst pipe, dead generator, car that won't start — Prova matches you with the closest checked professional in Lagos.
+          Burst pipe, dead generator, car that won&apos;t start — Prova matches you with the closest checked professional in Lagos.
         </Text>
 
         <View style={styles.benefits}>

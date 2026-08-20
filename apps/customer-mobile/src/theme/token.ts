@@ -13,7 +13,10 @@ export const colors = {
   warning: "#F6B73C",
   info: "#4FA8FF",
   white: "#FFFFFF",
-  black: "#000000"
+  black: "#000000",
+  success: "#2DD68F",
+  successText: "#0D3E2C",
+  warningText: "#49380F",
 } as const;
 
 export const spacing = {
