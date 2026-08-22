@@ -1,0 +1,1 @@
+export { CreateBookingScreen as default } from '@/features/bookings/screens/CreateBookingScreen';
