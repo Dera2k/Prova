@@ -1,0 +1,1 @@
+export { InspectionFeeScreen as default } from '@/features/quotations/screens/InspectionFeeScreen';
