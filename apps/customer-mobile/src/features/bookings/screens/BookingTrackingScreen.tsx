@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView, StyleSheet, Linking } from 'react-native';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { View, Text, ScrollView, StyleSheet, Linking, AppState } from 'react-native';
 import { Screen, Button, Card, FeedbackState } from '@/components';
 import { StatusTimeline } from '@/components/StatusTimeline';
 import { colors, spacing, typography } from '@/theme';
@@ -7,6 +7,7 @@ import * as bookingApi from '../api';
 import type { Booking } from '../types';
 
 const POLL_INTERVAL_MS = 15000;
+const TERMINAL_STATUSES: Booking['status'][] = ['COMPLETED', 'CANCELLED', 'DISPUTED'];
 
 interface Props {
   id: string;
@@ -15,6 +16,7 @@ interface Props {
 export function BookingTrackingScreen({ id }: Props) {
   const [booking, setBooking] = useState<Booking | null>(null);
   const [loading, setLoading] = useState(true);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const fetchBooking = useCallback(async () => {
     try {
@@ -25,11 +27,49 @@ export function BookingTrackingScreen({ id }: Props) {
     }
   }, [id]);
 
+  const startPolling = useCallback(() => {
+    if (intervalRef.current) return;
+
+    intervalRef.current = setInterval(() => {
+      setBooking((current) => {
+        if (current && TERMINAL_STATUSES.includes(current.status)) {
+          clearInterval(intervalRef.current!);
+          intervalRef.current = null;
+          return current;
+        }
+        fetchBooking();
+        return current;
+      });
+    }, POLL_INTERVAL_MS);
+  }, [fetchBooking]);
+
+  const stopPolling = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+
   useEffect(() => {
     fetchBooking();
-    const interval = setInterval(fetchBooking, POLL_INTERVAL_MS);
-    return () => clearInterval(interval);
-  }, [fetchBooking]);
+    startPolling();
+
+    // Stop polling while the app is backgrounded — saves battery/data,
+    // resume and refetch immediately when the user comes back.
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        fetchBooking();
+        startPolling();
+      } else {
+        stopPolling();
+      }
+    });
+
+    return () => {
+      stopPolling();
+      subscription.remove();
+    };
+  }, [fetchBooking, startPolling, stopPolling]);
 
   if (loading) return <FeedbackState type="loading" title="Loading" message="" />;
   if (!booking) return <FeedbackState type="error" title="Not found" message="Booking not found" />;
@@ -39,7 +79,10 @@ export function BookingTrackingScreen({ id }: Props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Card>
           <Text style={styles.service}>{booking.service.name}</Text>
-          <Text style={styles.pro}>{booking.professional.name} · {booking.price ? `₦${booking.price.toLocaleString()} paid` : 'Awaiting quote'}</Text>
+          <Text style={styles.pro}>
+            {booking.professional.name}
+            {booking.price ? ` · ₦${booking.price.toLocaleString()} paid` : ' · Awaiting quote'}
+          </Text>
         </Card>
 
         <View style={styles.timeline}>
@@ -52,11 +95,6 @@ export function BookingTrackingScreen({ id }: Props) {
           <Button variant="secondary" onPress={() => Linking.openURL(`tel:${booking.professional.phone}`)}>
             Call pro
           </Button>
-          {booking.status === 'IN_PROGRESS' && (
-            <Button onPress={() => {/* handled in Booking Tracking + Confirmation phase */}}>
-              Mark complete
-            </Button>
-          )}
         </View>
       </ScrollView>
     </Screen>

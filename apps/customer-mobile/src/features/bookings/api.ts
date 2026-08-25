@@ -18,3 +18,7 @@ export function getBooking(id: string): Promise<Booking> {
 export function cancelBooking(id: string, reason: string): Promise<Booking> {
   return apiRequest(`/bookings/${id}/cancel`, { method: 'POST', body: { reason } });
 }
+
+export function getBookingStatus(id: string): Promise<{ status: Booking['status']; statusHistory: Booking['statusHistory'] }> {
+  return apiRequest(`/bookings/${id}/status`);
+}
