@@ -21,15 +21,15 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     borderRadius: radius.pill,
     paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xxs
+    paddingVertical: spacing.xxs,
   },
   label: typography.caption,
   success: { backgroundColor: colors.primarySoft },
   successLabel: { color: colors.primary },
-  warning: { backgroundColor: "#49380F" },
+  warning: { backgroundColor: colors.primarySoft },
   warningLabel: { color: colors.warning },
-  danger: { backgroundColor: "#4A1820" },
+  danger: { backgroundColor: colors.primarySoft },
   dangerLabel: { color: colors.danger },
   neutral: { backgroundColor: colors.surfaceElevated },
-  neutralLabel: { color: colors.textMuted }
+  neutralLabel: { color: colors.textMuted },
 });
