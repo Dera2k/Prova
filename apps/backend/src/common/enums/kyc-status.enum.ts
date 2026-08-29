@@ -1,0 +1,11 @@
+export enum KycDocumentType {
+  PROFILE_PHOTO = 'PROFILE_PHOTO',
+  GOVERNMENT_ID = 'GOVERNMENT_ID',
+  SELFIE_WITH_ID = 'SELFIE_WITH_ID',
+  TRADE_CERTIFICATE = 'TRADE_CERTIFICATE',
+}
+
+export enum KycDocumentStatus {
+  PENDING = 'PENDING',
+  UPLOADED = 'UPLOADED',
+}

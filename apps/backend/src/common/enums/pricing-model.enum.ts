@@ -1,0 +1,6 @@
+export enum PricingModel {
+  FIXED = 'FIXED',
+  STARTING_FROM = 'STARTING_FROM',
+  QUOTE_REQUIRED = 'QUOTE_REQUIRED',
+  HOURLY = 'HOURLY',
+}

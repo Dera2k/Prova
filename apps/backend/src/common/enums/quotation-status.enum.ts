@@ -1,0 +1,8 @@
+export enum QuotationStatus {
+  PENDING = 'PENDING',
+  SENT = 'SENT',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
+  EXPIRED = 'EXPIRED',
+  CANCELLED = 'CANCELLED',
+}
