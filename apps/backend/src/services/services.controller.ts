@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Param, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Query, UseGuards } from '@nestjs/common';
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
+import { FindProfessionalsQueryDto } from './dto/find-professionals-query.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -18,6 +19,11 @@ export class ServicesController {
   @Get('services/:id')
   async findOne(@Param('id') id: string) {
     return this.services.findOne(id);
+  }
+
+  @Get('services/:id/professionals')
+  async findNearbyProfessionals(@Param('id') id: string, @Query() query: FindProfessionalsQueryDto) {
+    return this.services.findNearbyProfessionals(id, query);
   }
 
   @Get('categories/:id/services')
