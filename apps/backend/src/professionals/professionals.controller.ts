@@ -4,7 +4,7 @@ import { UpdateProfessionalDto } from './dto/update-professional.dto';
 import { UpdateAvailabilityDto } from './dto/update-availability.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { JwtPayload } from '../auth/jwt-payload.interface';
+import type { JwtPayload } from '../auth/jwt-payload.interface';
 import { IsNumber } from 'class-validator';
 
 class UpdateLocationDto {

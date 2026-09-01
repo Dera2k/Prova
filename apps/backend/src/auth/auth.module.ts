@@ -12,7 +12,7 @@ import { DatabaseModule } from '../database/database.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, RefreshToken]),
-    JwtModule.register({}),
+    JwtModule.register({ global: true }),
     ThrottlerModule.forRoot([{ ttl: 60000, limit: 3 }]),
     DatabaseModule,
   ],
