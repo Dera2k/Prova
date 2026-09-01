@@ -5,6 +5,13 @@ import { DatabaseModule } from './database/database.module';
 import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { UploadsModule } from './uploads/uploads.module';
+import { CategoriesModule } from './categories/categories.module';
+import { ServicesModule } from './services/services.module';
+import { ProfessionalsModule } from './professionals/professionals.module';
+import { KycModule } from './kyc/kyc.module';
+import { AddressesModule } from './addresses/addresses.module';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
   imports: [
@@ -14,6 +21,13 @@ import { UsersModule } from './users/users.module';
     HealthModule,
     AuthModule,
     UsersModule,
+    UploadsModule,
+    CategoriesModule,
+    ServicesModule,
+    ProfessionalsModule,
+    KycModule,
+    AddressesModule,
+    LocationsModule,
   ],
 })
 export class AppModule {}
