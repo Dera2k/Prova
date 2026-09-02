@@ -12,6 +12,8 @@ import { ProfessionalsModule } from './professionals/professionals.module';
 import { KycModule } from './kyc/kyc.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { LocationsModule } from './locations/locations.module';
+import { BookingsModule } from './bookings/bookings.module';
+import { QuotationsModule } from './quotations/quotations.module';
 
 @Module({
   imports: [
@@ -28,6 +30,8 @@ import { LocationsModule } from './locations/locations.module';
     KycModule,
     AddressesModule,
     LocationsModule,
+    BookingsModule,
+    QuotationsModule,
   ],
 })
 export class AppModule {}
