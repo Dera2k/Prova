@@ -1,4 +1,4 @@
-import { Controller, Post, Param, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, UseGuards } from '@nestjs/common';
 import { QuotationsService } from './quotations.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -10,9 +10,14 @@ import { CreateQuotationDto } from './dto/create-quotation.dto';
 export class QuotationsController {
   constructor(private quotations: QuotationsService) {}
 
-  @Post(':bookingId/quotations')
-  async create(@CurrentUser() user: JwtPayload, @Param('bookingId') bookingId: string, @Body() dto: CreateQuotationDto) {
-    return this.quotations.create(bookingId, dto, user.sub);
+  @Get(':id/quotation')
+  async findByBooking(@Param('id') id: string) {
+    return this.quotations.findByBooking(id);
+  }
+
+  @Post(':id/quotation')
+  async create(@CurrentUser() user: JwtPayload, @Param('id') id: string, @Body() dto: CreateQuotationDto) {
+    return this.quotations.create(id, dto);
   }
 
   @Post('quotations/:id/accept')

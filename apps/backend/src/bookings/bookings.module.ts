@@ -7,9 +7,13 @@ import { BookingStatusHistory } from './entities/booking-status-history.entity';
 import { Professional } from '../professionals/entities/professional.entity';
 import { ProfessionalService } from '../professionals/entities/professional-service.entity';
 import { Address } from '../addresses/entities/address.entity';
+import { QuotationsModule } from '../quotations/quotations.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Booking, BookingStatusHistory, Professional, ProfessionalService, Address])],
+  imports: [
+    TypeOrmModule.forFeature([Booking, BookingStatusHistory, Professional, ProfessionalService, Address]),
+    QuotationsModule,
+  ],
   controllers: [BookingsController],
   providers: [BookingsService],
   exports: [BookingsService],

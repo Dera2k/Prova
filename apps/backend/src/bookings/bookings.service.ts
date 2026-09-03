@@ -24,6 +24,17 @@ export class BookingsService {
     @InjectRepository(Address) private addresses: Repository<Address>,
   ) {}
 
+  async assertProfessionalOwnsBooking(bookingId: string, userId: string): Promise<Booking> {
+    const booking = await this.findById(bookingId);
+    const professional = await this.professionals.findOne({ where: { userId } });
+
+    if (!professional || professional.id !== booking.professionalId) {
+      throw new ForbiddenException('You are not the professional on this booking');
+    }
+
+    return booking;
+  }
+
   async create(customerId: string, dto: CreateBookingDto): Promise<Booking> {
     const professional = await this.professionals.findOne({ where: { id: dto.professionalId } });
     if (!professional) {

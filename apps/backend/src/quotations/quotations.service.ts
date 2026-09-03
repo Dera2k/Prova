@@ -7,7 +7,6 @@ import { QuotationStatus } from '../common/enums/quotation-status.enum';
 import { Booking } from '../bookings/entities/booking.entity';
 import { CategoryFee } from '../categories/entities/category-fee.entity';
 import { Service } from '../services/entities/service.entity';
-import { Professional } from '../professionals/entities/professional.entity';
 import { UserRole } from '../common/enums/user-role.enum';
 import { BookingStatus } from '../common/enums/booking-status.enum';
 import { BookingsService } from '../bookings/bookings.service';
@@ -19,11 +18,10 @@ export class QuotationsService {
     @InjectRepository(Booking) private bookings: Repository<Booking>,
     @InjectRepository(Service) private services: Repository<Service>,
     @InjectRepository(CategoryFee) private categoryFees: Repository<CategoryFee>,
-    @InjectRepository(Professional) private professionals: Repository<Professional>,
     private bookingsService: BookingsService,
   ) {}
 
-  async create(bookingId: string, dto: CreateQuotationDto, requesterId: string): Promise<Quotation> {
+  async create(bookingId: string, dto: CreateQuotationDto): Promise<Quotation> {
     const booking = await this.bookings.findOne({ where: { id: bookingId } });
     if (!booking) {
       throw new NotFoundException('Booking not found');
@@ -32,11 +30,6 @@ export class QuotationsService {
     const existing = await this.quotations.findOne({ where: { bookingId } });
     if (existing) {
       throw new BadRequestException('Quotation already exists for this booking');
-    }
-
-    const professional = await this.professionals.findOne({ where: { userId: requesterId } });
-    if (!professional || professional.id !== booking.professionalId) {
-      throw new ForbiddenException('You are not the assigned professional for this booking');
     }
 
     const service = await this.services.findOne({ where: { id: booking.serviceId } });
