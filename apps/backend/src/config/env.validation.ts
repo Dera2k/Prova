@@ -77,6 +77,9 @@ class EnvironmentVariables {
 
   @IsString()
   CORS_ORIGINS: string;
+
+  @IsNumber()
+  PROVA_COMMISSION_RATE: number;
 }
 
 export function validate(config: Record<string, unknown>) {

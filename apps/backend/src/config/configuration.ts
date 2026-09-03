@@ -46,4 +46,8 @@ export default () => ({
   cors: {
     origins: (process.env.CORS_ORIGINS ?? '').split(',').map((o) => o.trim()),
   },
+
+  commission: {
+  rate: parseFloat(process.env.PROVA_COMMISSION_RATE ?? '0.10'),
+},
 });
